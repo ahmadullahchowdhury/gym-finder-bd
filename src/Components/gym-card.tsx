@@ -53,10 +53,15 @@ const GymCard = () => {
               The Majestic and Wonderful Bahamas
             </h3>
             <p className="text-base text-gray-500 md:text-lg">
-              The best kept secret of The Bahamas is the country’s sheer size
-              and diversity. With 16 major islands, The Bahamas is an unmatched
-              destination
+              Location : Google Map Link
             </p>
+
+            <ul className="flex gap-3  *:rounded-full *:border *:border-sky-100 *:bg-sky-200 *:px-2 *:py-0.5 dark:text-sky-300 dark:*:border-sky-500/15 dark:*:bg-sky-500/10 ">
+              <li>Steam Room</li>
+              <li>Air Conditioning</li>
+              <li></li>
+            </ul>
+
             <p className="text-xl font-black text-gray-800">
               $110
               <span className="text-base font-normal text-gray-600">

@@ -7,15 +7,22 @@ import { ToggleGroup, ToggleGroupItem } from "@/Components/ui/toggle-group";
 
 import { StarFilledIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { Slider } from "@/Components/ui/slider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGlobalContext } from "@/Context/global-state-provider";
 
 const Filters = () => {
   const [sliderValue, setSliderValue] = useState([30, 50]);
-  // const handleSliderChange = () => {
-  //     setSliderValue(value);
-  //     console.log(setSliderValue);
-  //   };
-  console.log(sliderValue);
+
+  const { gymStatus, setGymStatus } = useGlobalContext();
+  // const [selectedValue, setSelectedValue] = useState("operational");
+
+
+  const handleRadioChange = (value: any) => {
+    console.log("prev Value:", value);
+    setGymStatus(value);
+    console.log("post Value:", gymStatus);
+  };
+
   return (
     <div>
       <div className="flex flex-col gap-3">
@@ -72,13 +79,17 @@ const Filters = () => {
         </div>
         <div>
           <p className="py-2 text-lg font-semibold">Status</p>
-          <RadioGroup defaultValue="comfortable">
+          <RadioGroup
+            
+            onValueChange={handleRadioChange}
+            // value='operational'
+          >
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="default" id="r1" />
+              <RadioGroupItem value="operational" id="r1" />
               <Label htmlFor="r1">Operational</Label>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="comfortable" id="r2" />
+              <RadioGroupItem value="non-operational" id="r2" />
               <Label htmlFor="r2">Non Operational</Label>
             </div>
           </RadioGroup>
@@ -87,7 +98,7 @@ const Filters = () => {
           <p className="py-2 text-lg font-semibold">Allowed Gender</p>
           <RadioGroup defaultValue="combined">
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="combined" id="r1"/>
+              <RadioGroupItem value="combined" id="r1" />
               <Label className="flex gap-2" htmlFor="r1">
                 Combined
                 <div
@@ -101,8 +112,9 @@ const Filters = () => {
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="male" id="r2" />
-              <Label className="flex gap-2" htmlFor="r2">Male
-              <div
+              <Label className="flex gap-2" htmlFor="r2">
+                Male
+                <div
                   className="transition duration-150 ease-in-out text-primary hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
                   data-te-toggle="tooltip"
                   title="Hi! I'm tooltip"
@@ -113,8 +125,9 @@ const Filters = () => {
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="female" id="r3" />
-              <Label className="flex gap-2" htmlFor="r2">Female
-              <div
+              <Label className="flex gap-2" htmlFor="r2">
+                Female
+                <div
                   className="transition duration-150 ease-in-out text-primary hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
                   data-te-toggle="tooltip"
                   title="Hi! I'm tooltip"
