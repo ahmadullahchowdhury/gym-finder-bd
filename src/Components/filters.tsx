@@ -16,17 +16,22 @@ import { AttributeEnum } from "@/app/enum/attribute.enum";
 const Filters = () => {
   const [sliderValue, setSliderValue] = useState([30, 50]);
 
-  const { gymStatus, setGymStatus } = useGlobalContext();
-  // const [selectedValue, setSelectedValue] = useState("operational");
+  const { name, status, priceRange ,gender,rating, amenities,setAttribute } = useGlobalContext();
 
-  const handleRadioChange = (value: any) => {
-    console.log("prev Value:", value);
-    setGymStatus(value);
-    console.log("post Value:", gymStatus);
+  const handleStatusChange = (value: any) => {
+    setAttribute("status", value);
   };
+
+  const handlePriceRangeChange = (value: number[]) => {
+    setSliderValue(value);
+    setAttribute("priceRange", value);
+  };
+
+  
 
   return (
     <div>
+      <Button onClick={() => console.log(status, name , priceRange )}>press</Button>
       <div className="flex flex-col gap-3">
         <div className="flex flex-row justify-between ">
           <p className="text-xl font-semibold">Filters</p>
@@ -36,8 +41,7 @@ const Filters = () => {
         <div>
           <p className="py-2 text-lg font-semibold">Gym Name</p>
           <div className="flex items-center w-full max-w-sm space-x-2">
-            <Input type="text" placeholder="Gym Name" />
-            {/* <Button type="submit">Search</Button> */}
+            <Input onChange={(e) => setAttribute("name", e.target.value) } type="text" placeholder="Gym Name" />
           </div>
         </div>
         <div className="">
@@ -49,7 +53,7 @@ const Filters = () => {
             step={1}
             minStepsBetweenThumbs={10}
             // value={sliderValue}
-            onValueChange={(newValue) => setSliderValue(newValue)}
+            onValueChange={ handlePriceRangeChange}
           />
           <div className="flex items-center justify-center py-3">
             <Input
@@ -59,6 +63,8 @@ const Filters = () => {
               onChange={(event) => {
                 const newValue = event.target.value;
                 setSliderValue([newValue, sliderValue[1]]);
+                setAttribute("priceRange", sliderValue);
+
               }}
               placeholder="Min"
               min={0}
@@ -72,6 +78,7 @@ const Filters = () => {
               onChange={(event) => {
                 const newValue = event.target.value;
                 setSliderValue([sliderValue[0], newValue]);
+                setAttribute("priceRange", sliderValue);
               }}
               placeholder="Max"
               max={100}
@@ -81,7 +88,7 @@ const Filters = () => {
         </div>
         <div>
           <p className="py-2 text-lg font-semibold">Status</p>
-          <RadioGroup onValueChange={handleRadioChange}>
+          <RadioGroup onValueChange={handleStatusChange}>
             {Object.values(BusinessStatusEnum).map((status, index) => (
               <div key={index} className="flex items-center space-x-2">
                 <RadioGroupItem value={status} id="r1" />
@@ -151,6 +158,7 @@ const Filters = () => {
             ))}
           </ToggleGroup>
         </div>
+        B
       </div>
     </div>
   );
