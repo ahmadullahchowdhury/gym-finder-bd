@@ -16,22 +16,67 @@ import { AttributeEnum } from "@/app/enum/attribute.enum";
 const Filters = () => {
   const [sliderValue, setSliderValue] = useState([30, 50]);
 
-  const { name, status, priceRange ,gender,rating, amenities,setAttribute } = useGlobalContext();
+  const {
+    name,
+    status,
+    priceRange,
+    gender,
+    priceMax,
+    priceMin,
+    rating,
+    amenities,
+    setAttribute,
+  } = useGlobalContext();
 
-  const handleStatusChange = (value: any) => {
+  const handleStatusChange = (value: BusinessStatusEnum) => {
     setAttribute("status", value);
+  };
+
+  const handleGenderChange = (value: AllowedGenderEnum) => {
+    setAttribute("gender", value);
   };
 
   const handlePriceRangeChange = (value: number[]) => {
     setSliderValue(value);
-    setAttribute("priceRange", value);
+    setAttribute("priceMin", value[0]);
+    setAttribute("priceMax", value[1]);
   };
 
-  
+  const [selectedValues, setSelectedValues] = useState([]);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+
+  // Callback function for handling value changes in the ToggleGroup
+  const handleRatingChange = (values: string[]) => {
+    setAttribute("rating", values);
+    console.log("Selected Values:", values);
+  };
 
   return (
     <div>
-      <Button onClick={() => console.log(status, name , priceRange )}>press</Button>
+      <Button
+        onClick={() =>
+          console.log(
+            "status",
+            status,
+            "amenities",
+            amenities,
+            "name",
+            name,
+            "priceRange",
+            priceRange,
+            "gender",
+            gender,
+            "rating",
+            rating,
+            "priceMin",
+            priceMin,
+            "priceMax",
+            priceMax
+          )
+        }
+      >
+        press
+      </Button>
       <div className="flex flex-col gap-3">
         <div className="flex flex-row justify-between ">
           <p className="text-xl font-semibold">Filters</p>
@@ -41,7 +86,11 @@ const Filters = () => {
         <div>
           <p className="py-2 text-lg font-semibold">Gym Name</p>
           <div className="flex items-center w-full max-w-sm space-x-2">
-            <Input onChange={(e) => setAttribute("name", e.target.value) } type="text" placeholder="Gym Name" />
+            <Input
+              onChange={(e) => setAttribute("name", e.target.value)}
+              type="text"
+              placeholder="Gym Name"
+            />
           </div>
         </div>
         <div className="">
@@ -53,7 +102,7 @@ const Filters = () => {
             step={1}
             minStepsBetweenThumbs={10}
             // value={sliderValue}
-            onValueChange={ handlePriceRangeChange}
+            onValueChange={handlePriceRangeChange}
           />
           <div className="flex items-center justify-center py-3">
             <Input
@@ -63,8 +112,7 @@ const Filters = () => {
               onChange={(event) => {
                 const newValue = event.target.value;
                 setSliderValue([newValue, sliderValue[1]]);
-                setAttribute("priceRange", sliderValue);
-
+                setAttribute("priceMin", Number(newValue));
               }}
               placeholder="Min"
               min={0}
@@ -78,7 +126,7 @@ const Filters = () => {
               onChange={(event) => {
                 const newValue = event.target.value;
                 setSliderValue([sliderValue[0], newValue]);
-                setAttribute("priceRange", sliderValue);
+                setAttribute("priceMax", Number(newValue));
               }}
               placeholder="Max"
               max={100}
@@ -99,7 +147,10 @@ const Filters = () => {
         </div>
         <div>
           <p className="py-2 text-lg font-semibold">Allowed Gender</p>
-          <RadioGroup defaultValue="combined">
+          <RadioGroup
+            onValueChange={handleGenderChange}
+            defaultValue="combined"
+          >
             {Object.values(AllowedGenderEnum).map((gender, index) => (
               <div key={index} className="flex items-center space-x-2">
                 <RadioGroupItem value={gender} id="r1" />
@@ -129,7 +180,21 @@ const Filters = () => {
             <div className="flex flex-col gap-2">
               {Object.values(AttributeEnum).map((amenity, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <Checkbox className="w-5 h-5" id={amenity} />
+                  <Checkbox
+                    // value={amenity}
+                    checked={amenities?.includes(amenity)}
+                    name="amenity"
+                    onCheckedChange={(checked) => {
+                      checked
+                        ? setAttribute("amenities", [...amenities, amenity])
+                        : setAttribute(
+                            "amenities",
+                            amenities.filter((x) => x !== amenity)
+                          );
+                    }}
+                    className="w-5 h-5"
+                    id={amenity}
+                  />
                   <label
                     htmlFor={amenity}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -143,7 +208,12 @@ const Filters = () => {
         </div>
         <div>
           <p className="py-2 text-lg font-semibold">Rating</p>
-          <ToggleGroup className="flex-wrap" type="multiple" variant="outline">
+          <ToggleGroup
+            onValueChange={handleRatingChange}
+            className="flex-wrap"
+            type="multiple"
+            variant="outline"
+          >
             {Array.from({ length: 5 }, (_, index) => (
               <ToggleGroupItem
                 key={index}
@@ -158,7 +228,6 @@ const Filters = () => {
             ))}
           </ToggleGroup>
         </div>
-        B
       </div>
     </div>
   );

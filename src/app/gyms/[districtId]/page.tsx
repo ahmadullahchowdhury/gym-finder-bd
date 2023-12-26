@@ -8,14 +8,14 @@ const Gyms = () => {
   const { districtId } = useParams();
 
   return (
-    <div className="bg-slate-200 pt-40">
+    <div className="pt-40 bg-slate-200">
 
     <div className="w-8/12 h-[100rem] mx-auto">
       <div className="grid grid-cols-4 gap-4">
-        <div className="bg-black/10 p-5 rounded-xl shadow-lg">
+        <div className="p-5 shadow-lg  bg-black/10 rounded-xl md:col-span-2 lg:col-span-1">
           <Filters></Filters>
         </div>
-        <div className="col-span-3 ">
+        <div className="md:col-span-2 lg:col-span-3 ">
           <GymCard></GymCard>
         </div>
       </div>

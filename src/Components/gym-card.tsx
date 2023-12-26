@@ -2,7 +2,7 @@ const GymCard = () => {
   return (
     <div>
       <div className="flex flex-col ">
-        <div className="relative flex flex-col max-w-xs p-3 mx-auto space-y-3 bg-white border border-white shadow-lg md:flex-row md:space-x-5 md:space-y-0 rounded-xl md:max-w-5xl">
+        <div className="relative flex flex-col items-start justify-start max-w-xs p-3 space-y-3 bg-white border border-white shadow-lg ju md:flex-row md:space-x-5 md:space-y-0 rounded-xl md:max-w-5xl">
           {/* <div className="grid w-full bg-white md:w-1/3 place-items-center">
             <img
               src="https://images.pexels.com/photos/4381392/pexels-photo-4381392.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
