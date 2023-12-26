@@ -45,10 +45,9 @@ const Filters = () => {
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
 
-  // Callback function for handling value changes in the ToggleGroup
   const handleRatingChange = (values: string[]) => {
     setAttribute("rating", values);
-    console.log("Selected Values:", values);
+    // console.log("Selected Values:", values);
   };
 
   return (
