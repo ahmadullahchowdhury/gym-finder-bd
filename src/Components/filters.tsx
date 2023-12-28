@@ -4,7 +4,6 @@ import { Label } from "@/Components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/Components/ui/radio-group";
 import { Checkbox } from "./ui/checkbox";
 import { ToggleGroup, ToggleGroupItem } from "@/Components/ui/toggle-group";
-
 import { StarFilledIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { Slider } from "@/Components/ui/slider";
 import { useEffect, useState } from "react";
