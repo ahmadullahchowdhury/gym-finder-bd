@@ -34,15 +34,15 @@ export const GlobalContextProvider = ({
   children,
 }: GlobalContextProviderType) => {
   const [status, setStatus] = useState<BusinessStatusEnum>(
-    BusinessStatusEnum.OPERATIONAL
+    "" as BusinessStatusEnum
   );
   const [name, setName] = useState("");
   const [amenities, setAmenities] = useState<AttributeEnum[]>([]);
   const [rating, setRating] = useState<string[]>([]);
   const [gender, setGender] = useState<AllowedGenderEnum>(
-    AllowedGenderEnum.MALE
+    "" as AllowedGenderEnum
   );
-  const [priceRange, setPriceRange] = useState([20, 30]);
+  const [priceRange, setPriceRange] = useState([]);
 
   const [priceMin, setPriceMin] = useState<number>(0);
   const [priceMax, setPriceMax] = useState<number>(0);
@@ -66,6 +66,8 @@ export const GlobalContextProvider = ({
       setPriceMax(value);
     }
   }
+
+  
 
   const contextValue = {
     status,
