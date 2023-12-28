@@ -1,16 +1,16 @@
 import { Input } from "@/Components/ui/input";
-import { Button } from "./ui/button";
 import { Label } from "@/Components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/Components/ui/radio-group";
-import { Checkbox } from "./ui/checkbox";
-import { ToggleGroup, ToggleGroupItem } from "@/Components/ui/toggle-group";
-import { StarFilledIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { Slider } from "@/Components/ui/slider";
-import { useEffect, useState } from "react";
+import { ToggleGroup, ToggleGroupItem } from "@/Components/ui/toggle-group";
 import { useGlobalContext } from "@/Context/global-state-provider";
 import { AllowedGenderEnum } from "@/app/enum/allowed-gender.enum";
-import { BusinessStatusEnum } from "@/app/enum/business-status.enum";
 import { AttributeEnum } from "@/app/enum/attribute.enum";
+import { BusinessStatusEnum } from "@/app/enum/business-status.enum";
+import { InfoCircledIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Checkbox } from "./ui/checkbox";
 
 const Filters = () => {
   const [sliderValue, setSliderValue] = useState([30, 50]);
@@ -44,9 +44,13 @@ const Filters = () => {
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
 
+
+
+
+  
+
   const handleRatingChange = (values: string[]) => {
     setAttribute("rating", values);
-    // console.log("Selected Values:", values);
   };
 
   return (
