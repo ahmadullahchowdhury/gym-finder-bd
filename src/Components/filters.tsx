@@ -13,7 +13,7 @@ import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 
 const Filters = () => {
-  const [sliderValue, setSliderValue] = useState([30, 50]);
+  
 
   const {
     name,
@@ -24,7 +24,10 @@ const Filters = () => {
     priceMin,
     rating,
     amenities,
+    sliderValue,
+    setSliderValue,
     setAttribute,
+    reset,
   } = useGlobalContext();
 
   const handleStatusChange = (value: BusinessStatusEnum) => {
@@ -53,7 +56,7 @@ const Filters = () => {
       <div className="flex flex-col gap-3">
         <div className="flex flex-row justify-between ">
           <p className="text-xl font-semibold">Filters</p>
-          <p> Reset </p>
+          <button className="px-4 py-2 border-2 border-red-500 border-solid rounded-md hover:text-white hover:bg-red-400 hover:shadow-xl" onClick={reset}> Reset </button>
         </div>
         <div className="my-2 border-b-2 border-black border-solid"></div>
         <div>
@@ -62,6 +65,7 @@ const Filters = () => {
             <Input
               onChange={(e) => setAttribute("name", e.target.value)}
               type="text"
+              value={name}
               placeholder="Gym Name"
             />
           </div>
@@ -109,7 +113,7 @@ const Filters = () => {
         </div>
         <div>
           <p className="py-2 text-lg font-semibold">Status</p>
-          <RadioGroup onValueChange={handleStatusChange}>
+          <RadioGroup onValueChange={handleStatusChange} value={status} >
             {Object.values(BusinessStatusEnum).map((status, index) => (
               <div key={index} className="flex items-center space-x-2">
                 <RadioGroupItem value={status} id="r1" />
@@ -122,11 +126,11 @@ const Filters = () => {
           <p className="py-2 text-lg font-semibold">Allowed Gender</p>
           <RadioGroup
             onValueChange={handleGenderChange}
-            defaultValue="combined"
+            value={gender}
           >
             {Object.values(AllowedGenderEnum).map((gender, index) => (
               <div key={index} className="flex items-center space-x-2">
-                <RadioGroupItem value={gender} id="r1" />
+                <RadioGroupItem  value={gender} id="r1" />
                 <Label className="flex gap-2" htmlFor="r1">
                   {gender}
                   <div
@@ -186,6 +190,7 @@ const Filters = () => {
             className="flex-wrap"
             type="multiple"
             variant="outline"
+            value={rating}
           >
             {Array.from({ length: 5 }, (_, index) => (
               <ToggleGroupItem

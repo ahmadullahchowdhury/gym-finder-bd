@@ -1,4 +1,4 @@
-const GymCard = ({ gyms }) => {
+const GymCard = ({ gyms  }) => {
   return (
     <div>
       <div className="flex flex-col gap-5 ">
