@@ -44,41 +44,12 @@ const Filters = () => {
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
 
-
-
-
-  
-
   const handleRatingChange = (values: string[]) => {
     setAttribute("rating", values);
   };
 
   return (
     <div>
-      <Button
-        onClick={() =>
-          console.log(
-            "status",
-            status,
-            "amenities",
-            amenities,
-            "name",
-            name,
-            "priceRange",
-            priceRange,
-            "gender",
-            gender,
-            "rating",
-            rating,
-            "priceMin",
-            priceMin,
-            "priceMax",
-            priceMax
-          )
-        }
-      >
-        press
-      </Button>
       <div className="flex flex-col gap-3">
         <div className="flex flex-row justify-between ">
           <p className="text-xl font-semibold">Filters</p>

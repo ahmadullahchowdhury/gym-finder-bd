@@ -10,23 +10,21 @@ import { useEffect, useState } from "react";
 
 const Gyms = () => {
   const { districtId } = useParams();
-  
-  const [gyms , setGyms] = useState([]);
+
+  const [gyms, setGyms] = useState([]);
   const [url, setUrl] = useState<string>("" as string);
-
-
 
   const { name, status, gender, priceMax, priceMin, rating, amenities } =
     useGlobalContext();
 
-   async function  getGymsByFilters(url: string) {
+  async function getGymsByFilters(url: string) {
     return await axios
       .get(url)
       .then(({ data }) => data)
       .catch((error) => console.log(error, "error"));
   }
 
-  useEffect(  () => {
+  useEffect(() => {
     let url =
       (process.env.NEXT_PUBLIC_BACKEND_URL as string) +
       "gym/filters?district_id=" +
@@ -51,9 +49,8 @@ const Gyms = () => {
     if (amenities.length) {
       url += "&attributes=" + amenities.join(",");
     }
-   
-    getGymsByFilters(url).then((res) => setGyms(res));
 
+    getGymsByFilters(url).then((res) => setGyms(res));
   }, [name, districtId, status, gender, priceMax, priceMin, rating, amenities]);
   console.log("gymData....", gyms);
 
@@ -65,7 +62,7 @@ const Gyms = () => {
             <Filters></Filters>
           </div>
           <div className="md:col-span-2 lg:col-span-3 ">
-            <GymCard></GymCard>
+            <GymCard gyms={gyms}></GymCard>
           </div>
         </div>
       </div>
