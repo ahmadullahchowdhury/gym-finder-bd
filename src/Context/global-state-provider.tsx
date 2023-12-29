@@ -15,13 +15,16 @@ import {
 type GlobalContextType = {
   priceMin: number;
   priceMax: number;
-  status: BusinessStatusEnum;
+  status: "" | BusinessStatusEnum;
   name: string;
   amenities: AttributeEnum[];
   rating: string[];
   priceRange: number[];
-  gender: AllowedGenderEnum;
+  gender: "" | AllowedGenderEnum;
   setAttribute: (name: string, value: any) => void;
+  reset: any;
+  sliderValue: any;
+  setSliderValue: any;
 };
 
 type GlobalContextProviderType = {
@@ -33,19 +36,27 @@ const GlobalContext = createContext<GlobalContextType>({} as GlobalContextType);
 export const GlobalContextProvider = ({
   children,
 }: GlobalContextProviderType) => {
-  const [status, setStatus] = useState<BusinessStatusEnum>(
-    "" as BusinessStatusEnum
-  );
+  const [status, setStatus] = useState<BusinessStatusEnum | "">("");
   const [name, setName] = useState("");
   const [amenities, setAmenities] = useState<AttributeEnum[]>([]);
   const [rating, setRating] = useState<string[]>([]);
-  const [gender, setGender] = useState<AllowedGenderEnum>(
-    "" as AllowedGenderEnum
-  );
+  const [gender, setGender] = useState<AllowedGenderEnum | "">("");
   const [priceRange, setPriceRange] = useState([]);
 
   const [priceMin, setPriceMin] = useState<number>(0);
   const [priceMax, setPriceMax] = useState<number>(0);
+
+  const [sliderValue, setSliderValue] = useState([30, 50]);
+
+  const reset = () => {
+    console.log("clicked");
+    setName("");
+    setSliderValue([30, 50]);
+    setAmenities([]);
+    setRating([]);
+    setStatus("");
+    setGender("");
+  };
 
   function setAttribute(name: string, value: any) {
     if (name === "name") {
@@ -67,8 +78,6 @@ export const GlobalContextProvider = ({
     }
   }
 
-  
-
   const contextValue = {
     status,
     priceMax,
@@ -78,7 +87,10 @@ export const GlobalContextProvider = ({
     rating,
     priceRange,
     gender,
+    sliderValue,
+    setSliderValue,
     setAttribute,
+    reset,
   };
 
   return (
