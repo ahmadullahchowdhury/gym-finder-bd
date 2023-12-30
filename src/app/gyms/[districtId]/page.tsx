@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 const Gyms = () => {
   const { districtId } = useParams();
 
+  console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
+
   const [gyms, setGyms] = useState([]);
   const [url, setUrl] = useState<string>("" as string);
 
