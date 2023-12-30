@@ -1,8 +1,22 @@
-const GymCard = ({ gyms  }) => {
+type Gym = {
+  business_status: string;
+  rating: number;
+  allowed_gender: string;
+  name: string;
+  monthly_fee: number;
+  attributes: string[];
+  // Add other properties as needed
+};
+
+type GymCardProps = {
+  gyms: Gym[];
+};
+
+const GymCard: React.FC<GymCardProps> = ({ gyms }) => {
   return (
     <div>
       <div className="flex flex-col gap-5 ">
-        {gyms.map((gym, index: number) => (
+        {gyms?.map((gym, index: number) => (
           <div
             key={index}
             className="relative flex flex-col items-start justify-start max-w-xs p-3 space-y-3 bg-white border border-white shadow-lg ju md:flex-row md:space-x-5 md:space-y-0 rounded-xl md:max-w-5xl"
@@ -17,11 +31,11 @@ const GymCard = ({ gyms  }) => {
             <div className="flex flex-col w-full p-3 space-y-6 bg-white">
               <div className="flex justify-between item-center">
                 <p className="hidden font-medium text-gray-500 md:block">
-                  {gym.business_status}
+                  {gym?.business_status}
                 </p>
                 <div className="flex items-center">
                   <p className="ml-1 text-sm font-bold text-gray-600">
-                    Rating: {gym.rating}
+                    Rating: {gym?.rating}
                   </p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -47,11 +61,11 @@ const GymCard = ({ gyms  }) => {
                 </svg>
               </div> */}
                 <div className="hidden px-3 py-1 text-xs font-medium text-gray-800 bg-gray-200 rounded-full md:block">
-                  {gym.allowed_gender}
+                  {gym?.allowed_gender}
                 </div>
               </div>
               <h3 className="text-xl font-black text-gray-800 md:text-3xl">
-                {gym.name}
+                {gym?.name}
               </h3>
               <p className="text-base text-gray-500 md:text-lg">
                 Location : Google Map Link
@@ -61,7 +75,7 @@ const GymCard = ({ gyms  }) => {
                 key={index}
                 className="flex gap-3 *:rounded-full *:border *:border-sky-100 *:bg-sky-200 *:px-2 *:py-0.5 dark:text-sky-300 dark:*:border-sky-500/15 dark:*:bg-sky-500/10 "
               >
-                {gym.attributes.map((attribute, index) => (
+                {gym?.attributes?.map((attribute: string, index: number) => (
                   <div key={index}>
                     <li>{attribute}</li>
                   </div>
@@ -69,7 +83,7 @@ const GymCard = ({ gyms  }) => {
               </ul>
 
               <p className="text-xl font-black text-gray-800">
-                {`৳${gym.monthly_fee}`}
+                {`৳${gym?.monthly_fee}`}
                 <span className="text-base font-normal text-gray-600">
                   /Month
                 </span>
